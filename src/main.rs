@@ -10,8 +10,10 @@ use hyper::Response;
 async fn main() {
     let mp4 = warp::path!("video" / String)
         .and_then(video_handler); 
-
-    warp::serve(mp4).run(([127, 0, 0, 1], 3030)).await;
+    
+    let port = 3030;
+    println!("Running server on port {}", port);
+    warp::serve(mp4).run(([127, 0, 0, 1], port)).await;
 }
 
 async fn video_handler(param: String) -> Result<impl Reply, Rejection> {
